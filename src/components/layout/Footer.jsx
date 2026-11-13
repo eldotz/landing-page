@@ -4,7 +4,7 @@ export default function Footer({ menuOpen, onPrivacyOpen }) {
       <div className="container">
         <div className="footer-top">
           <a className="brand" href="#top" aria-label="Eldotz home">
-            <svg className="brand-mark">
+            <svg className="brand-mark" aria-hidden="true">
               <use href="#brand-mark" />
             </svg>
             <span>

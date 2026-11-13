@@ -8,9 +8,13 @@ export default function IconLibrary() {
       <defs>
         <symbol id="brand-mark" viewBox="0 0 48 48">
           <path
-            fill="currentColor"
-            d="M21 2h6v15l10.6-10.6 4.3 4.3L31.2 21H46v6H31.2l10.7 10.3-4.3 4.3L27 31v15h-6V31L10.4 41.6l-4.3-4.3L16.8 27H2v-6h14.8L6.1 10.7l4.3-4.3L21 17z"
+            d="M8 26 37 19C34 9 24 5 15 10S4 26 10 34s15 10 23 4"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="6"
+            strokeLinecap="round"
           />
+          <circle cx="40" cy="31.5" r="3.5" fill="currentColor" />
         </symbol>
         <symbol id="arrow-up-right" viewBox="0 0 24 24">
           <path

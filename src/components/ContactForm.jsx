@@ -1,4 +1,5 @@
 import { useState } from "react";
+import ButtonArrow from "./ButtonArrow.jsx";
 
 // Replace this address with your monitored business inbox before launch.
 const CONTACT_EMAIL = "hello@eldotz.com";
@@ -32,6 +33,9 @@ export default function ContactForm({ service, onServiceChange }) {
     <form
       className="contact-form reveal"
       id="contact-form"
+      action={`mailto:${CONTACT_EMAIL}`}
+      method="post"
+      encType="text/plain"
       onSubmit={handleSubmit}
     >
       <div className="form-row">
@@ -103,10 +107,8 @@ export default function ContactForm({ service, onServiceChange }) {
           No mailing lists. No noise.
         </p>
         <button className="button button-dark" type="submit">
-          Start a conversation{" "}
-          <svg>
-            <use href="#arrow-up-right" />
-          </svg>
+          <span className="button-label">Start a conversation</span>
+          <ButtonArrow />
         </button>
       </div>
       <p className="form-status" role="status" aria-live="polite">

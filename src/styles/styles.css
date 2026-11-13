@@ -1,3 +1,17 @@
+@font-face {
+  font-family: "DM Sans";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("/fonts/dm-sans-latin-variable.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url("/fonts/manrope-latin-variable.woff2") format("woff2");
+}
 :root {
   font-family: "DM Sans", sans-serif;
   color: #f2f1eb;
@@ -143,41 +157,142 @@ h2 {
   letter-spacing: -2.5px;
   line-height: 1.15;
 }
+.button,
+.nav-contact {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
 .button {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   gap: 28px;
-  min-height: 54px;
-  padding: 15px 23px;
-  border-radius: 4px;
-  font-size: 13px;
-  font-weight: 550;
+  min-height: 58px;
+  padding: 7px 7px 7px 24px;
   border: 1px solid transparent;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
   transition:
     background 0.25s,
-    transform 0.25s;
+    background-position 0.5s,
+    box-shadow 0.3s,
+    transform 0.3s;
 }
-.button svg {
+.button-label {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  transition: transform 0.35s cubic-bezier(0.2, 0.65, 0.3, 1);
+}
+.button-icon {
+  --icon-size: 42px;
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: var(--icon-size);
+  height: var(--icon-size);
+  border-radius: 50%;
+  overflow: hidden;
+  transition:
+    background 0.3s,
+    color 0.3s,
+    transform 0.3s;
+}
+.button-icon svg {
+  grid-area: 1 / 1;
   width: 18px;
   height: 18px;
+  transition:
+    transform 0.5s cubic-bezier(0.22, 0.68, 0.25, 1),
+    opacity 0.35s;
+}
+.button-icon .arrow-follow {
+  opacity: 0;
+  transform: translate(-170%, 170%);
+}
+:is(.button, .nav-contact):is(:hover, :focus-visible) .arrow-main {
+  opacity: 0;
+  transform: translate(170%, -170%);
+}
+:is(.button, .nav-contact):is(:hover, :focus-visible) .arrow-follow {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+:is(.button, .nav-contact):is(:hover, :focus-visible) .button-label {
+  transform: translateX(2px);
+}
+.button::before,
+.nav-contact::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  top: -50%;
+  left: 0;
+  width: 40%;
+  height: 200%;
+  opacity: 0;
+  background: linear-gradient(90deg, transparent, #ffffff38, transparent);
+  transform: translateX(-160%) skewX(-20deg);
+  pointer-events: none;
+}
+:is(.button, .nav-contact):is(:hover, :focus-visible)::before {
+  animation: button-sheen 0.85s cubic-bezier(0.2, 0.65, 0.3, 1) both;
 }
 .button:hover {
   transform: translateY(-3px);
 }
+:is(.button, .nav-contact):active .button-icon {
+  transform: scale(0.92);
+}
+.button:active {
+  transform: translateY(0) scale(0.98);
+}
 .button-light {
-  background: var(--paper);
+  background: linear-gradient(110deg, #ffc2a3, #ff9d7c 45%, #ffb99a);
+  background-size: 200% 100%;
   color: var(--ink);
+  border-color: #ffffff20;
+  box-shadow:
+    inset 0 1px 0 #ffffff40,
+    0 8px 30px #ff9d7c10;
+}
+.button-light .button-icon {
+  background: var(--ink);
+  color: var(--paper);
 }
 .button-light:hover {
-  background: var(--peach);
+  background-position: 100% 0;
+  box-shadow:
+    inset 0 1px 0 #ffffff40,
+    0 10px 35px #ff9d7c25;
 }
 .button-dark {
   background: var(--ink);
   color: var(--paper);
+  box-shadow:
+    inset 0 1px 0 #ffffff12,
+    0 5px 15px #10121110;
+}
+.button-dark .button-icon {
+  background: var(--peach);
+  color: var(--ink);
 }
 .button-dark:hover {
-  background: #30352e;
+  background: #252b23;
+  box-shadow:
+    inset 0 1px 0 #ffffff12,
+    0 9px 24px #10121120;
+}
+.button-dark:hover .button-icon {
+  background: var(--paper);
+}
+:is(.contact, dialog) .button:focus-visible {
+  outline-color: var(--ink);
 }
 .text-link {
   display: inline-flex;
@@ -233,17 +348,20 @@ h2 {
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 11px;
+  gap: 10px;
   font-family: var(--display);
   font-size: 32px;
-  font-weight: 750;
-  letter-spacing: -1.9px;
+  font-weight: 700;
+  letter-spacing: -1.7px;
   line-height: 1;
 }
 .brand .brand-mark {
   color: var(--peach);
-  width: 28px;
-  height: 28px;
+  width: 36px;
+  height: 36px;
+}
+.brand:hover > svg {
+  transform: rotate(-6deg);
 }
 .brand-period {
   color: var(--peach);
@@ -264,15 +382,34 @@ h2 {
 }
 .nav-contact {
   font-size: 12px;
-  display: flex;
+  font-weight: 550;
+  display: inline-flex;
   align-items: center;
-  gap: 28px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid #73776e;
+  gap: 23px;
+  min-height: 46px;
+  padding: 5px 5px 5px 19px;
+  border: 1px solid #ffffff30;
+  border-radius: 999px;
+  white-space: nowrap;
+  transition:
+    background 0.25s,
+    border-color 0.25s;
 }
-.nav-contact svg {
-  width: 17px;
-  height: 17px;
+.nav-contact .button-icon {
+  --icon-size: 34px;
+  background: var(--peach);
+  color: var(--ink);
+}
+.nav-contact .button-icon svg {
+  width: 14px;
+  height: 14px;
+}
+.nav-contact:hover {
+  border-color: var(--peach);
+  background: #ff9d7c0a;
+}
+.nav-contact:active {
+  transform: scale(0.98);
 }
 .menu-toggle,
 .mobile-nav {
@@ -316,10 +453,14 @@ h2 {
 .headline-star {
   color: var(--peach);
   display: inline-block;
-  font-size: 0.57em;
-  line-height: 1;
+  width: 0.52em;
+  height: 0.52em;
   margin-left: 20px;
-  vertical-align: 15%;
+  vertical-align: 3%;
+}
+.headline-star svg {
+  width: 100%;
+  height: 100%;
 }
 .hero-description {
   color: #a4a89f;
@@ -878,18 +1019,18 @@ h2 {
   letter-spacing: 1.7px;
   z-index: 3;
 }
-.verdant-scene {
+.commerce-scene {
   background: #b8c6aa;
   color: #32432b;
 }
-.verdant-scene::after {
+.commerce-scene::after {
   content: "";
   position: absolute;
   inset: 0;
   background: linear-gradient(120deg, #fff2, transparent 45%);
   z-index: -1;
 }
-.verdant-orbit {
+.commerce-ring {
   border: 1px solid #d2ddc5;
   width: 450px;
   height: 450px;
@@ -1111,11 +1252,11 @@ h2 {
   align-self: center;
   color: #a8b09f;
 }
-.orbit-scene {
+.workspace-scene {
   background: #bbb7d7;
   color: #45415c;
 }
-.orbit-scene::before {
+.workspace-scene::before {
   content: "";
   position: absolute;
   width: 400px;
@@ -1808,10 +1949,13 @@ h2 {
   line-height: 1.7;
 }
 .form-submit .button {
-  font-size: 11px;
-  gap: 17px;
-  min-height: 48px;
-  padding: 13px 19px;
+  font-size: 12px;
+  gap: 20px;
+  min-height: 54px;
+  padding: 6px 6px 6px 22px;
+}
+.form-submit .button-icon {
+  --icon-size: 40px;
 }
 .form-status {
   font-size: 11px;
@@ -1836,8 +1980,8 @@ h2 {
   font-size: 29px;
 }
 .footer-top .brand-mark {
-  width: 25px;
-  height: 25px;
+  width: 32px;
+  height: 32px;
 }
 .footer-top p {
   font-size: 10px;
@@ -2011,6 +2155,35 @@ body.dialog-open {
 .hero-art {
   animation: art-in 1.5s ease both;
 }
+.hero-copy .button:not(:hover):not(:focus-visible) .button-icon {
+  animation: button-beacon 4.5s ease-out 1.5s infinite;
+}
+@keyframes button-sheen {
+  0% {
+    opacity: 0;
+    transform: translateX(-160%) skewX(-20deg);
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(400%) skewX(-20deg);
+  }
+}
+@keyframes button-beacon {
+  0%,
+  65%,
+  100% {
+    box-shadow: 0 0 0 0 #10121100;
+  }
+  75% {
+    box-shadow: 0 0 0 5px #10121118;
+  }
+  90% {
+    box-shadow: 0 0 0 10px #10121100;
+  }
+}
 @keyframes hero-in {
   from {
     opacity: 0;
@@ -2158,8 +2331,8 @@ body.dialog-open {
     font-size: 29px;
   }
   .brand .brand-mark {
-    width: 25px;
-    height: 25px;
+    width: 32px;
+    height: 32px;
   }
   .nav-contact {
     gap: 17px;
@@ -2409,7 +2582,7 @@ body.dialog-open {
   }
   .nav-wrap {
     height: 74px;
-    gap: 20px;
+    gap: 10px;
   }
   .brand {
     font-size: 29px;
@@ -2421,22 +2594,23 @@ body.dialog-open {
     margin-left: auto;
     gap: 12px;
     font-size: 11px;
-    padding-bottom: 5px;
+    min-height: 44px;
+    padding: 5px 5px 5px 15px;
   }
-  .nav-contact svg {
-    width: 15px;
-    height: 15px;
+  .nav-contact .button-icon {
+    --icon-size: 32px;
   }
   .menu-toggle {
     background: none;
     border: 0;
-    width: 28px;
-    height: 32px;
+    width: 40px;
+    height: 44px;
     display: flex;
+    flex-shrink: 0;
     flex-direction: column;
     justify-content: center;
     gap: 6px;
-    padding: 3px;
+    padding: 9px;
   }
   .menu-toggle span {
     width: 22px;
@@ -2510,7 +2684,6 @@ body.dialog-open {
   }
   .headline-star {
     margin-left: 15px;
-    font-size: 0.55em;
   }
   .hero-description {
     font-size: 12px;
@@ -2519,9 +2692,9 @@ body.dialog-open {
   }
   .hero-copy .button {
     margin-top: 23px;
-    min-height: 50px;
-    font-size: 11px;
-    gap: 30px;
+    min-height: 56px;
+    font-size: 12px;
+    gap: 26px;
   }
   .hero-art {
     height: 390px;
@@ -2869,9 +3042,9 @@ body.dialog-open {
     min-height: 44px;
   }
   .form-submit {
-    align-items: center;
-    flex-direction: row;
-    gap: 15px;
+    align-items: stretch;
+    flex-direction: column-reverse;
+    gap: 14px;
   }
   .form-submit > p {
     font-size: 8px;
@@ -2880,9 +3053,8 @@ body.dialog-open {
     display: initial;
   }
   .form-submit .button {
-    font-size: 10px;
-    padding-inline: 15px;
-    gap: 12px;
+    font-size: 12px;
+    width: 100%;
   }
   .footer {
     padding-top: 32px;
@@ -2966,9 +3138,10 @@ body.dialog-open {
   .about-values span {
     font-size: 7px;
   }
-  .form-submit .button {
-    font-size: 9px;
-    padding-inline: 12px;
+  .nav-contact {
+    font-size: 10px;
+    gap: 8px;
+    padding-left: 12px;
   }
 }
 @media (prefers-reduced-motion: reduce) {

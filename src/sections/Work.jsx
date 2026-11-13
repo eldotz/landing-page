@@ -23,25 +23,23 @@ export default function Work({ onProjectSelect }) {
           <p className="section-heading-note reveal">
             A glimpse into what we can build together.
             <br />
-            Explore our concept lab.
+            Unbranded concepts. Built to show what’s possible.
           </p>
         </div>
         <div className="work-grid">
           <button
-            className="project project-verdant reveal"
-            onClick={() => onProjectSelect(projects.verdant)}
-            aria-label="Explore Verdant commerce platform concept"
+            className="project reveal"
+            onClick={() => onProjectSelect(projects.commerce)}
+            aria-label="Explore commerce experience concept"
           >
-            <div className="project-image verdant-scene" aria-hidden="true">
+            <div className="project-image commerce-scene" aria-hidden="true">
               <div className="project-image-label">
                 COMMERCE, WITH A CONSCIENCE.
               </div>
-              <div className="verdant-orbit"></div>
+              <div className="commerce-ring"></div>
               <div className="shop-preview">
                 <div className="shop-nav">
-                  <span className="shop-brand">
-                    verdant<span>®</span>
-                  </span>
+                  <span className="shop-brand">essentials.</span>
                   <span>
                     Shop &nbsp; Our story &nbsp;{" "}
                     <span className="bag-icon">↗</span>
@@ -66,14 +64,14 @@ export default function Work({ onProjectSelect }) {
                     <div className="bottle">
                       <div className="bottle-cap"></div>
                       <span>
-                        verdant<span>EVERYDAY ESSENTIALS</span>
+                        daily<span>EVERYDAY ESSENTIALS</span>
                         <i>naturally different.</i>
                       </span>
                     </div>
                     <div className="bottle bottle-small">
                       <div className="bottle-cap"></div>
                       <span>
-                        v.<span>THE GOOD STUFF</span>
+                        care<span>THE GOOD STUFF</span>
                       </span>
                     </div>
                   </div>
@@ -91,24 +89,24 @@ export default function Work({ onProjectSelect }) {
             </div>
             <div className="project-caption">
               <div>
-                <h3>Verdant</h3>
+                <h3>Commerce experience</h3>
                 <p>A fresh perspective on conscious commerce.</p>
               </div>
               <span>STRATEGY · DESIGN · DEVELOPMENT</span>
             </div>
           </button>
           <button
-            className="project project-orbit reveal"
-            onClick={() => onProjectSelect(projects.orbit)}
-            aria-label="Explore Orbit AI workspace concept"
+            className="project reveal"
+            onClick={() => onProjectSelect(projects.workspace)}
+            aria-label="Explore AI workspace concept"
           >
-            <div className="project-image orbit-scene" aria-hidden="true">
+            <div className="project-image workspace-scene" aria-hidden="true">
               <div className="project-image-label">
                 LESS BUSYWORK. MORE BRILLIANCE.
               </div>
               <div className="dashboard-preview">
                 <aside className="dash-sidebar">
-                  <span className="dash-brand">◉ orbit</span>
+                  <span className="dash-brand">◉ workspace</span>
                   <div className="dash-search">
                     ⌕ &nbsp; Search anything <kbd>⌘ K</kbd>
                   </div>
@@ -174,7 +172,7 @@ export default function Work({ onProjectSelect }) {
                     <span>✧</span>
                     <div>
                       <strong>Your next big idea starts here.</strong>
-                      <p>Ask Orbit to make room for what matters.</p>
+                      <p>Let AI make room for what matters.</p>
                     </div>
                     <b>↑</b>
                   </div>
@@ -200,7 +198,7 @@ export default function Work({ onProjectSelect }) {
             </div>
             <div className="project-caption">
               <div>
-                <h3>Orbit</h3>
+                <h3>AI workspace</h3>
                 <p>Making space for the work that matters.</p>
               </div>
               <span>PRODUCT · UX / UI · AI</span>
@@ -208,8 +206,8 @@ export default function Work({ onProjectSelect }) {
           </button>
         </div>
         <p className="work-footnote reveal">
-          <span className="status-dot"></span> Original concepts. Real
-          capabilities. Your project could be next.
+          <span className="status-dot"></span> Illustrative concepts, not client
+          projects.
         </p>
       </div>
     </section>

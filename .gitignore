@@ -2,5 +2,9 @@ node_modules/
 dist/
 .DS_Store
 *.local
+.env
+.env.*
+!.env.example
+.prerender/
 playwright-report/
 test-results/

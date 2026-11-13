@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import ButtonArrow from "../ButtonArrow.jsx";
 
 function closeOnBackdrop(event) {
   if (event.target !== event.currentTarget) return;
@@ -47,7 +48,7 @@ export default function Dialogs({
         >
           ×
         </button>
-        <div className="dialog-eyebrow">THE ELDOTZ CONCEPT LAB</div>
+        <div className="dialog-eyebrow">UNBRANDED SOLUTION CONCEPT</div>
         <h2 id="project-dialog-title">{project?.name}</h2>
         <p className="dialog-description">{project?.description}</p>
         <div className="dialog-tags">
@@ -60,18 +61,16 @@ export default function Dialogs({
           <p>{project?.detail}</p>
         </div>
         <p className="dialog-disclaimer">
-          An original concept by eldotz, created to demonstrate our approach.
-          Not a commissioned client project.
+          An illustrative concept, not a live website or commissioned client
+          project.
         </p>
         <a
           className="button button-dark"
           href="#contact"
           onClick={() => projectDialog.current.close()}
         >
-          Let’s build something like this{" "}
-          <svg>
-            <use href="#arrow-up-right" />
-          </svg>
+          <span className="button-label">Let’s build something like this</span>
+          <ButtonArrow />
         </a>
       </dialog>
       <dialog
@@ -91,9 +90,9 @@ export default function Dialogs({
         <div className="dialog-eyebrow">YOUR INFORMATION, RESPECTED.</div>
         <h2 id="privacy-title">Privacy notice</h2>
         <p>
-          This website does not use analytics or advertising cookies. Google
-          Fonts is used to display our typefaces; your browser connects to
-          Google to load these files.
+          This website does not use analytics or advertising cookies. Fonts and
+          visual assets are hosted with this website; no third-party font
+          requests are made.
         </p>
         <p>
           The contact form prepares an email in your email app. Your details are

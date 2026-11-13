@@ -26,6 +26,7 @@ export default function Expertise({ onServiceSelect }) {
         <div className="services-grid">
           <a
             className="service-card reveal"
+            id="it-services"
             href="#contact"
             onClick={() => onServiceSelect("IT services")}
           >
@@ -51,9 +52,9 @@ export default function Expertise({ onServiceSelect }) {
               <div className="tech-bracket">]</div>
             </div>
             <h3>
-              Technology that works.
+              IT services.
               <br />
-              And works harder.
+              Built to scale.
             </h3>
             <p>
               Resilient software, seamless experiences, and infrastructure that
@@ -66,6 +67,7 @@ export default function Expertise({ onServiceSelect }) {
           </a>
           <a
             className="service-card reveal"
+            id="digital-marketing"
             href="#contact"
             onClick={() => onServiceSelect("Marketing & growth")}
           >
@@ -86,9 +88,9 @@ export default function Expertise({ onServiceSelect }) {
               </svg>
             </div>
             <h3>
-              Don’t just be seen.
+              Digital marketing.
               <br />
-              Be the one they choose.
+              Designed to grow.
             </h3>
             <p>
               Brand stories that resonate. Digital campaigns that convert.
@@ -101,6 +103,7 @@ export default function Expertise({ onServiceSelect }) {
           </a>
           <a
             className="service-card reveal"
+            id="product-development"
             href="#contact"
             onClick={() => onServiceSelect("Product development")}
           >
@@ -129,9 +132,9 @@ export default function Expertise({ onServiceSelect }) {
               </div>
             </div>
             <h3>
-              From “what if”
+              Product development.
               <br />
-              to “what’s next.”
+              From idea to impact.
             </h3>
             <p>
               Thoughtfully designed digital products. Built around your users,
@@ -144,6 +147,7 @@ export default function Expertise({ onServiceSelect }) {
           </a>
           <a
             className="service-card reveal"
+            id="ai-solutions"
             href="#contact"
             onClick={() => onServiceSelect("AI solutions")}
           >
@@ -162,9 +166,9 @@ export default function Expertise({ onServiceSelect }) {
               <i className="ai-node node-two"></i>
             </div>
             <h3>
-              Less artificial.
+              AI solutions.
               <br />
-              More intelligent.
+              Real-world intelligence.
             </h3>
             <p>
               Practical AI that solves real challenges. Automate the ordinary.

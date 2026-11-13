@@ -1,4 +1,5 @@
 import Orb from "../components/Orb.jsx";
+import ButtonArrow from "../components/ButtonArrow.jsx";
 
 export default function Hero() {
   return (
@@ -16,19 +17,20 @@ export default function Hero() {
             <br />
             <span className="accent">impact.</span>
             <span className="headline-star" aria-hidden="true">
-              ✳
+              <svg>
+                <use href="#brand-mark" />
+              </svg>
             </span>
           </h1>
           <p className="hero-description">
             Technology. Creativity. Intelligence.
             <br />
-            We bring it all together to move your business forward.
+            IT services, digital marketing, digital products, and AI — connected
+            to move your business forward.
           </p>
           <a className="button button-light" href="#expertise">
-            Discover what’s possible{" "}
-            <svg>
-              <use href="#arrow-up-right" />
-            </svg>
+            <span className="button-label">Discover what’s possible</span>
+            <ButtonArrow />
           </a>
         </div>
         <div className="hero-art" aria-hidden="true">

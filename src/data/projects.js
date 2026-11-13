@@ -1,13 +1,13 @@
 export const projects = {
-  verdant: {
-    name: "Verdant",
+  commerce: {
+    name: "Commerce experience",
     description: "A fresh perspective on conscious commerce.",
     tags: ["Brand strategy", "E-commerce", "UX / UI", "Development"],
     detail:
-      "A considered shopping experience for an everyday essentials brand. From its earthy visual identity to an intuitive storefront, this concept connects brand storytelling with a clear path to purchase. Designed with responsive layouts, accessible interactions, and a scalable commerce foundation in mind.",
+      "An unbranded shopping experience for everyday essentials. From intuitive browsing to a clear path to purchase, this concept illustrates how design and technology can support online commerce. Designed with responsive layouts, accessible interactions, and a scalable commerce foundation in mind.",
   },
-  orbit: {
-    name: "Orbit",
+  workspace: {
+    name: "AI workspace",
     description: "Making space for the work that matters.",
     tags: ["Product strategy", "UX / UI", "AI workflows", "Web application"],
     detail:

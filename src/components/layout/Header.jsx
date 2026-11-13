@@ -1,9 +1,11 @@
+import ButtonArrow from "../ButtonArrow.jsx";
+
 export default function Header({ menuOpen, onMenuChange }) {
   return (
     <header className={`header${menuOpen ? " menu-open" : ""}`} id="top">
       <div className="nav-wrap container">
         <a className="brand" href="#top" aria-label="Eldotz home">
-          <svg className="brand-mark">
+          <svg className="brand-mark" aria-hidden="true">
             <use href="#brand-mark" />
           </svg>
           <span>
@@ -12,15 +14,13 @@ export default function Header({ menuOpen, onMenuChange }) {
         </a>
         <nav className="desktop-nav" aria-label="Main navigation">
           <a href="#expertise">Expertise</a>
-          <a href="#work">Selected work</a>
+          <a href="#work">Solutions lab</a>
           <a href="#approach">Our approach</a>
           <a href="#about">About us</a>
         </nav>
         <a className="nav-contact" href="#contact">
-          Let’s talk{" "}
-          <svg>
-            <use href="#arrow-up-right" />
-          </svg>
+          <span className="button-label">Let’s talk</span>
+          <ButtonArrow />
         </a>
         <button
           className="menu-toggle"
@@ -44,7 +44,7 @@ export default function Header({ menuOpen, onMenuChange }) {
           Expertise <span>01</span>
         </a>
         <a href="#work">
-          Selected work <span>02</span>
+          Solutions lab <span>02</span>
         </a>
         <a href="#approach">
           Our approach <span>03</span>

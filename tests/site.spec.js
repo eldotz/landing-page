@@ -4,7 +4,9 @@ test("renders all services without runtime errors", async ({ page }) => {
   const errors = [];
   page.on("pageerror", (error) => errors.push(error.message));
   await page.goto("/");
-  await expect(page).toHaveTitle("eldotz — Big ideas. Real-world impact.");
+  await expect(page).toHaveTitle(
+    "Eldotz | IT Services, Digital Marketing & AI Solutions",
+  );
   await expect(page.getByRole("heading", { level: 1 })).toContainText(
     "Real-world",
   );
@@ -50,14 +52,17 @@ test("project and privacy dialogs support keyboard dismissal", async ({
   page,
 }) => {
   await page.goto("/");
-  for (const name of ["Verdant", "Orbit"]) {
+  for (const name of ["Commerce experience", "AI workspace"]) {
     await page
-      .getByRole("button", { name: new RegExp(`Explore ${name}`) })
+      .getByRole("button", { name: new RegExp(`Explore ${name}`, "i") })
       .click();
     await expect(page.getByRole("dialog")).toBeVisible();
     await expect(
       page.getByRole("dialog").getByRole("heading", { level: 2 }),
     ).toHaveText(name);
+    await expect(page.getByRole("dialog")).toContainText(
+      "not a live website or commissioned client project",
+    );
     await page.keyboard.press("Escape");
     await expect(page.getByRole("dialog")).toHaveCount(0);
   }
@@ -98,10 +103,39 @@ test("FAQ expands and service selection carries into the email draft", async ({
   expect(decodeURIComponent(draft)).toContain("alex@example.com");
 });
 
+test("CTA hover animates the arrows without changing the link name", async ({
+  page,
+}) => {
+  await page.goto("/");
+  const cta = page.getByRole("link", { name: "Discover what’s possible" });
+  await cta.hover();
+  await expect(cta.locator(".arrow-main")).toHaveCSS("opacity", "0");
+  await expect(cta.locator(".arrow-follow")).toHaveCSS("opacity", "1");
+  await expect(cta.locator(".button-icon")).toHaveAttribute(
+    "aria-hidden",
+    "true",
+  );
+  expect(
+    await cta.evaluate(
+      (element) => getComputedStyle(element, "::before").animationName,
+    ),
+  ).toBe("button-sheen");
+  await cta.click();
+  await expect(page).toHaveURL(/#expertise$/);
+});
+
 test("reduced motion keeps all content available", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/");
   await page.locator("#expertise").scrollIntoViewIfNeeded();
   await expect(page.locator("#expertise h2")).toHaveCSS("opacity", "1");
   await expect(page.locator(".hero-copy")).toHaveCSS("animation-name", "none");
+  const cta = page.locator(".hero-copy .button");
+  await cta.hover();
+  await expect(cta.locator(".button-icon")).toHaveCSS("animation-name", "none");
+  expect(
+    await cta.evaluate(
+      (element) => getComputedStyle(element, "::before").animationName,
+    ),
+  ).toBe("none");
 });
