@@ -1,9 +1,9 @@
-export default function Footer({ menuOpen, onPrivacyOpen }) {
+export default function Footer({ menuOpen, onPrivacyOpen, isBlog = false }) {
   return (
     <footer className="footer section-dark" inert={menuOpen}>
       <div className="container">
         <div className="footer-top">
-          <a className="brand" href="#top" aria-label="Eldotz home">
+          <a className="brand" href={isBlog ? "/" : "#top"} aria-label="Eldotz home">
             <svg className="brand-mark" aria-hidden="true">
               <use href="#brand-mark" />
             </svg>
@@ -16,8 +16,8 @@ export default function Footer({ menuOpen, onPrivacyOpen }) {
             <br />
             One extraordinary direction.
           </p>
-          <a className="back-to-top" href="#top">
-            BACK TO TOP{" "}
+          <a className="back-to-top" href={isBlog ? "/" : "#top"}>
+            {isBlog ? "BACK TO ELDOTZ" : "BACK TO TOP"}{" "}
             <svg>
               <use href="#arrow-up-right" />
             </svg>

@@ -12,8 +12,9 @@ import Approach from "./sections/Approach.jsx";
 import About from "./sections/About.jsx";
 import FAQ from "./sections/FAQ.jsx";
 import Contact from "./sections/Contact.jsx";
+import Blog from "./components/blog/Blog.jsx";
 
-export default function App() {
+function LandingPage() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [service, setService] = useState("");
   const [project, setProject] = useState(null);
@@ -62,4 +63,13 @@ export default function App() {
       />
     </>
   );
+}
+
+export default function App({ pathname } = {}) {
+  const currentPath = pathname ?? (typeof window === "undefined" ? "/" : window.location.pathname);
+  if (currentPath === "/blog" || currentPath === "/blog/" || currentPath.startsWith("/blog/")) {
+    const slug = currentPath.replace(/^\/blog\/?/, "").replace(/\/$/, "");
+    return <Blog slug={slug || undefined} />;
+  }
+  return <LandingPage />;
 }
