@@ -7,7 +7,9 @@
     "dev": "vite --host 0.0.0.0",
     "build": "vite build && vite build --ssr src/entry-server.jsx --outDir .prerender && node scripts/prerender.mjs",
     "preview": "vite preview --host 0.0.0.0",
-    "test": "playwright test"
+    "test": "playwright test",
+    "test:seo-policy": "node --test scripts/site-origin.test.mjs",
+    "seo:live": "node scripts/check-live-seo.mjs"
   },
   "dependencies": {
     "react": "^19.2.0",

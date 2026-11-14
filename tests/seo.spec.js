@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { blogPosts } from "../src/data/blog.js";
 
 const title = "Eldotz | IT Services, Digital Marketing & AI Solutions";
 
@@ -114,7 +115,14 @@ test("indexing and sitemap use only the configured canonical origin", async ({
   expect(await robots.text()).toContain(`Sitemap: ${home}sitemap.xml`);
   const sitemap = await request.get("/sitemap.xml");
   expect(sitemap.status()).toBe(200);
-  expect(await sitemap.text()).toContain(`<loc>${home}</loc>`);
+  const sitemapText = await sitemap.text();
+  expect(sitemapText).toContain(`<loc>${home}</loc>`);
+  expect(sitemapText).toContain(`<loc>${home}blog</loc>`);
+  for (const post of blogPosts)
+    expect(sitemapText).toContain(`<loc>${home}blog/${post.slug}</loc>`);
+  expect([...sitemapText.matchAll(/<loc>/g)]).toHaveLength(
+    blogPosts.length + 2,
+  );
 
   const graph = schema["@graph"];
   for (const type of ["Organization", "WebSite", "WebPage", "FAQPage"]) {
@@ -175,8 +183,54 @@ test("hydration preserves interactions without runtime or console errors", async
   expect(errors).toEqual([]);
 });
 
+test("blog pages are pre-rendered with route-specific indexability and metadata", async ({
+  page,
+}) => {
+  for (const entry of [
+    { path: "/blog", title: "Notes | Eldotz", type: "CollectionPage" },
+    ...blogPosts.map((post) => ({
+      path: `/blog/${post.slug}`,
+      title: `${post.title} | Eldotz Notes`,
+      type: "BlogPosting",
+    })),
+  ]) {
+    const response = await page.goto(entry.path);
+    expect(response.status()).toBe(200);
+    await expect(page).toHaveTitle(entry.title);
+    await expect(page.getByRole("heading", { level: 1 })).toHaveCount(1);
+    const canonical = page.locator('link[rel="canonical"]');
+    if (await canonical.count()) {
+      const url = await canonical.getAttribute("href");
+      const origin = new URL(url).origin;
+      expect(url).toBe(`${origin}${entry.path}`);
+      await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
+        "content",
+        /^index, follow/,
+      );
+      await expect(page.locator('meta[name="twitter:image"]')).toHaveAttribute(
+        "content",
+        `${origin}/images/og-image.png`,
+      );
+      const schema = await page
+        .locator('script[type="application/ld+json"]')
+        .evaluate((element) => JSON.parse(element.textContent));
+      expect(schema["@type"]).toBe(entry.type);
+      if (entry.type === "BlogPosting") {
+        expect(schema.publisher.name).toBe("Eldotz");
+        expect(schema.publisher.logo.url).toBe(`${origin}/brand/logo-mark.png`);
+      }
+    } else {
+      await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
+        "content",
+        "noindex, nofollow",
+      );
+    }
+  }
+});
+
 test("unknown URLs return 404 instead of duplicate landing pages", async ({
   request,
 }) => {
   expect((await request.get("/not-a-real-page")).status()).toBe(404);
+  expect((await request.get("/blog/not-a-real-article")).status()).toBe(404);
 });
